@@ -68,7 +68,7 @@
 	<logger name="com.crossoverJie.seconds.kill.service" level="DEBUG">
 	</logger>
 
-	<root level="DEBUG">
+	<root level="info">
 		<appender-ref ref="LOGFILE-DEBUG" />
 		<appender-ref ref="LOGFILE-INFO" />
 		<appender-ref ref="LOGFILE-ERROR" />

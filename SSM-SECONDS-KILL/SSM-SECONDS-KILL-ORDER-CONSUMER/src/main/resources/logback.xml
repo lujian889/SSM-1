@@ -66,13 +66,13 @@
 
 
     <logger name="com.crossoverjie.kafka.orderconsumer.kafka">
-        <level value="INFO" />
+        <level value="ERROR" />
         <appender-ref ref="LOGFILE-INFO"/>
     </logger>
 
 
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="LOGFILE-INFO" />
         <appender-ref ref="LOGFILE-ERROR" />
         <appender-ref ref="CONSOLE" />

@@ -43,7 +43,7 @@ public class RedisTest {
         config.setMaxWaitMillis(1000);
 
 
-//        JedisPool pool = new JedisPool(config, "27.126.180.210", 6379);
+//        JedisPool pool = new JedisPool(config, "27.126.180.210", 7002);
 //        System.out.println(pool.getResource());
 //        Jedis jedis = pool.getResource();
 //        jedis.set("name", "陈杰");
@@ -76,7 +76,7 @@ public class RedisTest {
 
     }
 
-    //    @Test
+   @Test
     public void saveData() {
         for (int i = 0; i < 100; i++) {
             RedisContent redisContent = new RedisContent();

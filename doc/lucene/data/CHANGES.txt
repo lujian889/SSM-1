@@ -553,7 +553,7 @@ New Features
 
 Optimizations
 
-* LUCENE-6379: IndexWriter.deleteDocuments(Query...) now detects if
+* LUCENE-7002: IndexWriter.deleteDocuments(Query...) now detects if
   one of the queries is MatchAllDocsQuery and just invokes the much
   faster IndexWriter.deleteAll in that case (Robert Muir, Adrien
   Grand, Mike McCandless)
