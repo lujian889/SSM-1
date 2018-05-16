@@ -154,8 +154,11 @@ https://github.com/crossoverJie/SSM-DUBBO-FILTER
 [使用`springBoot+SpringCloud`构建微服务项目](https://github.com/crossoverJie/springboot-cloud)
 
 # 联系作者
-- [crossoverJie@gmail.com](mailto:crossoverJie@gmail.com)
+- [172257861@qq.com](mailto:172257861@qq.com)
 
+
+
+-原作者 [crossoverJie@gmail.com](mailto:crossoverJie@gmail.com)
 ![weixinchat.jpg](https://crossoverjie.top/uploads/weixinchat.jpg)
 
 
