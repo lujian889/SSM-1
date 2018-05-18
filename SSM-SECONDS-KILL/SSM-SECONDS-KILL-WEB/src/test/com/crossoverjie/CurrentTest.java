@@ -4,7 +4,6 @@ import com.crossoverJie.seconds.kill.controller.IndexController;
 import com.crossoverJie.seconds.kill.util.HttpTools;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +36,7 @@ public class CurrentTest {
         }
         logger.info("worker over");
     }
+
 
     public static void init() {
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()

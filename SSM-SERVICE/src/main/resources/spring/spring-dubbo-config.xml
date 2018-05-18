@@ -8,7 +8,7 @@
 	<dubbo:application name="ssm-service" owner="crossoverJie"
 		organization="ssm-crossoverJie" logger="slf4j"/>
 
-	<dubbo:registry id="dubbo-registry" address="zookeeper://192.168.0.188:2181"
+	<dubbo:registry id="dubbo-registry" address="zookeeper://192.168.176.136:2181"
 		file="/tmp/dubbo.cachr" />
 
 	<dubbo:monitor protocol="registry" />

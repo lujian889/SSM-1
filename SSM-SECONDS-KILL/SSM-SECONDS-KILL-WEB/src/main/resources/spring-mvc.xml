@@ -32,7 +32,8 @@
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="${appprop}" />
+        <!--<property name="location" value="${appprop}" />-->
+        <property name="location" value="classpath:application.properties" />
     </bean>
 
     <!-- 定义跳转的文件的前后缀 ，视图模式配置-->

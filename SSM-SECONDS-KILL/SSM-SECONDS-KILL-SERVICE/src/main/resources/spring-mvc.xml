@@ -13,6 +13,8 @@
 
 
     <context:component-scan base-package="com.crossoverJie" />
+
+
     <!--开启cglib代理-->
     <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
@@ -30,7 +32,8 @@
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="${dbprop}" />
+       <!-- <property name="location" value="${dbprop}" />-->
+        <property name="location" value="classpath:application.properties" />
     </bean>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"

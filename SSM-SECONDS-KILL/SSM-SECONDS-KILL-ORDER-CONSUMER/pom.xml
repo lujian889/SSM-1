@@ -208,11 +208,11 @@
 					<verbose>true</verbose>
 				</configuration>
 				<dependencies>
-					<dependency>
+					<!--<dependency>
 						<groupId>com.oracle.jdbc</groupId>
 						<artifactId>ojdbc6</artifactId>
 						<version>0.0.1</version>
-					</dependency>
+					</dependency>-->
 					<dependency>
 						<groupId>tk.mybatis</groupId>
 						<artifactId>mapper</artifactId>

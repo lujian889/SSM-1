@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = "classpath:spring-*.xml")
 public class StockServiceImplTest {
 
-    @Resource(name = "DBStockService")
+    @Resource(name = "DBStockService")  //DBStockService ?
     private StockService stockService ;
 
     @Test
