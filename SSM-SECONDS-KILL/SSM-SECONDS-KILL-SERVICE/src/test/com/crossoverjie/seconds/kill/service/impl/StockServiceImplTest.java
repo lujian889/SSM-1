@@ -15,8 +15,10 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = "classpath:spring-*.xml")
 public class StockServiceImplTest {
 
-    @Resource(name = "DBStockService")  //DBStockService ?
-    private StockService stockService ;
+   // @Resource(name = "DBStockService")  //DBStockService ?
+    //private StockService stockService ;
+    @Resource(name = "DBStockService")
+    private com.crossoverJie.seconds.kill.service.StockService stockService;
 
     @Test
     public void getCurrentCount() throws Exception {

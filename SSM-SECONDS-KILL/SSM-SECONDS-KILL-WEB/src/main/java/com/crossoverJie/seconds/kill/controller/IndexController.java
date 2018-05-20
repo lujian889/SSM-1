@@ -31,6 +31,20 @@ public class IndexController {
     @Autowired
     private OrderService orderService;
 
+
+    //初始化库存
+    @RequestMapping("/init/{num}")
+    @ResponseBody
+    public String initSocker(@PathVariable Integer num) {
+
+        stockService.initStock(num);
+
+        logger.info("init socker");
+        return "OK";
+    }
+
+
+
     @RequestMapping("/health")
     @ResponseBody
     public String health() {
@@ -68,6 +82,9 @@ public class IndexController {
 
     /**
      * 乐观锁更新库存
+     * 1、单机、单库,单应用10秒内1千并发无压力，事务100%通过
+     * 2、单机、单库,单应用5秒内1万并发有压力，事务100%错误,消费者应用服务器未死?
+     * 3、单机、单库,单应用1秒内1万并发无压力
      * @param sid
      * @return
      */
@@ -104,11 +121,13 @@ public class IndexController {
     }
 
     /**
+     * redis配置可能有问题 20180519
+     *
      * 乐观锁更新库存 限流 库存改为查询 Redis 提高性能
      * @param sid
      * @return
      */
-    @SpringControllerLimit(errorCode = 200,errorMsg = "request has limited")
+    //@SpringControllerLimit(errorCode = 200,errorMsg = "request has limited")
     @RequestMapping("/createOptimisticLimitOrderByRedis/{sid}")
     @ResponseBody
     public String createOptimisticLimitOrderByRedis(@PathVariable int sid) {
@@ -117,6 +136,7 @@ public class IndexController {
         try {
             id = orderService.createOptimisticOrderUseRedis(sid);
         } catch (Exception e) {
+           // if(id==0) logger.error("无法生成订单！");
             logger.error("Exception",e);
         }
         return String.valueOf(id);

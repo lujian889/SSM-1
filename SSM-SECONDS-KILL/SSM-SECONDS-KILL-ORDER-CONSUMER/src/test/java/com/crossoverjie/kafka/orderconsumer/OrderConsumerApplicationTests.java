@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class OrderConsumerApplicationTests {
 
-/*
+
 	@Autowired
 	private StockMapper stockMapper ;
 
@@ -27,7 +27,7 @@ public class OrderConsumerApplicationTests {
 		System.out.println(count);
 
 		Stock stock1 = stockMapper.selectByPrimaryKey(1);
-		System.out.println(stock1.getName());
-	}*/
+		System.out.println("--------"+stock1.getName());
+	}
 
 }

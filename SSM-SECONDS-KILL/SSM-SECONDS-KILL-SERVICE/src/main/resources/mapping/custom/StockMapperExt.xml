@@ -13,4 +13,8 @@
         AND version = #{version,jdbcType=INTEGER}
 
     </update>
+
+   <!-- <select id="countSumStock" parameterType="Integer">
+      select  count from stock WHERE id = #{id,jdbcType=INTEGER}
+    </select>-->
 </mapper>

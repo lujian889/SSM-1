@@ -15,4 +15,10 @@ public interface StockService {
      * @throws Exception
      */
     Integer getCurrentCount() throws Exception;
+
+
+
+    //初始化库存
+    Integer initStock(Integer n)  ;
+
 }

@@ -91,6 +91,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+   <!-- <import resource="spring-redisCluster.xml"></import>-->
 
     <!-- jedis 配置 -->
     <bean id="JedispoolConfig" class="redis.clients.jedis.JedisPoolConfig">

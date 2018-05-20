@@ -20,6 +20,15 @@ public class StockServiceImpl implements StockService {
     private StockMapper stockMapper;
 
     @Override
+    public int initStock(Stock stock) {
+
+        stockMapper.insertSelective(stock);
+
+        return 0;
+    }
+
+
+    @Override
     public int getStockCount(int id) {
         Stock ssmStock = stockMapper.selectByPrimaryKey(id);
         return ssmStock.getCount();

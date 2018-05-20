@@ -11,6 +11,10 @@ import com.crossoverJie.seconds.kill.pojo.Stock;
  */
 public interface StockService {
 
+
+    int initStock(Stock stock);
+
+
     /**
      * 获取剩余库存
      * @param id
@@ -38,6 +42,9 @@ public interface StockService {
      * @return
      */
     int updateStockByOptimistic(Stock stock);
+
+
+
 
 
 }
