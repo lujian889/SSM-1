@@ -41,13 +41,13 @@ public class ConsumerTask implements Runnable {
      */
     private final KafkaConsumer<String, String> consumer;
 
-    private Gson gson ;
+    private Gson gson;
 
     private OrderService orderService;
 
     public ConsumerTask(String brokerList, String groupId, String topic) {
-        this.gson = SpringBeanFactory.getBean(Gson.class) ;
-        this.orderService = SpringBeanFactory.getBean(OrderService.class) ;
+        this.gson = SpringBeanFactory.getBean(Gson.class);
+        this.orderService = SpringBeanFactory.getBean(OrderService.class);
 
         Properties props = new Properties();
         props.put("bootstrap.servers", brokerList);
@@ -58,8 +58,6 @@ public class ConsumerTask implements Runnable {
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-
-
 
 
         this.consumer = new KafkaConsumer<String, String>(props);
@@ -73,13 +71,10 @@ public class ConsumerTask implements Runnable {
         while (flag) {
             // 使用200ms作为获取超时时间
             ConsumerRecords<String, String> records = consumer.poll(200);
-
             for (ConsumerRecord<String, String> record : records) {
                 // 简单地打印消息
-                LOGGER.info("==="+record.value() + " consumed " + record.partition() +
-                        " message with offset: " + record.offset());
-
-                dealMessage(record.value()) ;
+                LOGGER.info("=================" + record.value() + " consumed " + record.partition() + " message with offset: " + record.offset());
+                dealMessage(record.value());
             }
         }
 
@@ -87,21 +82,22 @@ public class ConsumerTask implements Runnable {
     }
 
     /**
+     * 轮训----创建订单
      * @param value
      */
     private void dealMessage(String value) {
         try {
 
             Stock stock = gson.fromJson(value, Stock.class);
-            LOGGER.info("consumer stock={}",JSON.toJSONString(stock));
+            LOGGER.info("=================consumer stock={}", JSON.toJSONString(stock));
 
             //创建订单
             orderService.createOptimisticOrderUseRedisAndKafka(stock);
 
-        }catch (RejectedExecutionException e){
+        } catch (RejectedExecutionException e) {
             LOGGER.error("rejected message = " + value);
-        }catch (Exception e){
-            LOGGER.error("unknown exception",e);
+        } catch (Exception e) {
+            LOGGER.error("unknown exception", e);
         }
 
     }

@@ -5,8 +5,10 @@ import javax.persistence.*;
 
 @Table(name = "stock_order")
 public class StockOrder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)   解决方案 https://blog.csdn.net/luozhonghua2014/article/details/80395459
     private Integer id;
 
     /**

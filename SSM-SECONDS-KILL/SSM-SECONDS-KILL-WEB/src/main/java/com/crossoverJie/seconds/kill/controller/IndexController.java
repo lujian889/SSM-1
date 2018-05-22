@@ -121,13 +121,13 @@ public class IndexController {
     }
 
     /**
-     * redis配置可能有问题 20180519
+     * 核心业务已完善
      *
      * 乐观锁更新库存 限流 库存改为查询 Redis 提高性能
      * @param sid
      * @return
      */
-    //@SpringControllerLimit(errorCode = 200,errorMsg = "request has limited")
+    @SpringControllerLimit(errorCode = 200,errorMsg = "request has limited")
     @RequestMapping("/createOptimisticLimitOrderByRedis/{sid}")
     @ResponseBody
     public String createOptimisticLimitOrderByRedis(@PathVariable int sid) {

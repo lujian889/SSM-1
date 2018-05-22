@@ -22,12 +22,13 @@ public class ConsumerGroup {
      */
     private ExecutorService threadPool;
 
-    private List<ConsumerTask> consumers ;
+    private List<ConsumerTask> consumers;
 
     public ConsumerGroup(int threadNum, String groupId, String topic, String brokerList) {
-        LOGGER.info("kafka parameter={},{},{},{}",threadNum,groupId,topic,brokerList);
-        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
-                .setNameFormat("consumer-pool-%d").build();
+
+        LOGGER.info("kafka parameter={},{},{},{}", threadNum, groupId, topic, brokerList);
+
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("consumer-pool-%d").build();
 
         threadPool = new ThreadPoolExecutor(threadNum, threadNum,
                 0L, TimeUnit.MILLISECONDS,
@@ -46,7 +47,7 @@ public class ConsumerGroup {
      */
     public void execute() {
         for (ConsumerTask runnable : consumers) {
-            threadPool.submit(runnable) ;
+            threadPool.submit(runnable);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.crossoverJie.seconds.kill.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.crossoverJie.seconds.kill.api.constant.RedisKeysConstant;
 import com.crossoverJie.seconds.kill.dao.StockOrderMapper;
 import com.crossoverJie.seconds.kill.pojo.Stock;
@@ -102,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
         //检验库存，从 Redis 获取
         Stock stock = checkStockByRedis(sid);
 
-        //利用 Kafka 创建订单
+        //利用 Kafka client 创建订单
         kafkaProducer.send(new ProducerRecord(kafkaTopic, stock));
         logger.info("=====================================send Kafka success");
 
@@ -120,18 +121,25 @@ public class OrderServiceImpl implements OrderService {
          Integer sale = Integer.parseInt(jedisCluster.get(RedisKeysConstant.STOCK_SALE + sid));*/
 
         Stock stock = new Stock();
-        String cstring = redisTemplate.opsForValue().get(RedisKeysConstant.STOCK_COUNT + sid);
-        String sstring = redisTemplate.opsForValue().get(RedisKeysConstant.STOCK_SALE + sid);
-        String newVersionValue = redisTemplate.opsForValue().get(RedisKeysConstant.STOCK_VERSION + sid);
+        String productName="";
+        String cstring = redisTemplate.opsForValue().get(RedisKeysConstant.STOCK_COUNT + sid); //库存
+        String sstring = redisTemplate.opsForValue().get(RedisKeysConstant.STOCK_SALE + sid);  //销售
+        String newVersionValue = redisTemplate.opsForValue().get(RedisKeysConstant.STOCK_VERSION + sid); //版本号
 
-        if (cstring == null && sstring == null && newVersionValue == null) {//redis无任何缓存自己进库update,消费一次
-            Integer icount = stockService.getStockById(sid).getCount();//库存总数
+        //初始化 redis
+        if (cstring == null && sstring == null && newVersionValue == null) {
+            Stock pojo=getStockById(sid);
+            Integer icount =pojo.getCount();
+            Integer version=pojo.getVersion(); //初始第一比要算上 TODO?
+            Integer sales=pojo.getSale(); //初始第一比要算上  TODO?
+            productName= pojo.getName();
             stock.setId(sid);
             stock.setCount(icount); //库存数
-            stock.setSale(0);   //销售数
-            stock.setVersion(0); //更新库存表
-            redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_COUNT + sid,String.valueOf(icount));
-            logger.info("================初始redis=====================版本:1   剩余库存数:"+(icount-1)+"  销售数：1");
+            stock.setSale(sales);   //销售数
+            stock.setVersion(version); //更新库存表
+            stock.setName(productName);
+            initRedisData(sid, productName, icount, version, sales);
+            logger.info("================初始redis=====================版本:"+version+"   剩余库存数:"+(icount-sales)+"  销售数："+sales+" 商品:"+productName);
             return stock;
         }
 
@@ -151,8 +159,20 @@ public class OrderServiceImpl implements OrderService {
         stock.setCount(count);
         stock.setSale(sale);
         stock.setVersion(version);
-        logger.info("================redis=====================版本:" + version);
+        stock.setName(redisTemplate.opsForValue().get("proName"));
+        logger.info("================redis============================版本:"+version+" stock"+ JSON.toJSONString(stock));
         return stock;
+    }
+
+    private void initRedisData(int sid, String productName, Integer icount, Integer version, Integer sales) {
+        redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_COUNT + sid,String.valueOf(icount));
+        redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_SALE + sid,String.valueOf(sales));
+        //redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_VERSION + sid,String.valueOf(version));
+        redisTemplate.opsForValue().set("proName",productName);
+    }
+
+    private Stock getStockById(int sid) {
+        return stockService.getStockById(sid);
     }
 
     /**
@@ -175,7 +195,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Stock checkStock(int sid) {
-        Stock stock = stockService.getStockById(sid);
+        Stock stock = getStockById(sid);
         if (stock != null && stock.getSale().equals(stock.getCount())) {
             throw new RuntimeException("库存不足");
         }

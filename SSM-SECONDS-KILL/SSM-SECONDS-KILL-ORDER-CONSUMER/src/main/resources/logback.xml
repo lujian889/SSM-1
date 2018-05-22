@@ -72,7 +72,7 @@
 
 
 
-    <root level="ERROR">
+    <root level="INFO">
         <appender-ref ref="LOGFILE-INFO" />
         <appender-ref ref="LOGFILE-ERROR" />
         <appender-ref ref="CONSOLE" />

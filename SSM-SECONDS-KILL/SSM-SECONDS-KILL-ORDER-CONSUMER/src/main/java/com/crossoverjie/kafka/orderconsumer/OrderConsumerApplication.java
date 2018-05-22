@@ -28,6 +28,8 @@ public class OrderConsumerApplication {
 				.web(false)
 				.run(args);
 
+
+		//开启消费
 		ConsumerGroup consumerGroup = SpringBeanFactory.getBean(ConsumerGroup.class);
 		consumerGroup.execute();
 
