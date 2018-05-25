@@ -167,7 +167,7 @@ public class OrderServiceImpl implements OrderService {
     private void initRedisData(int sid, String productName, Integer icount, Integer version, Integer sales) {
         redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_COUNT + sid,String.valueOf(icount));
         redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_SALE + sid,String.valueOf(sales));
-        //redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_VERSION + sid,String.valueOf(version));
+        redisTemplate.opsForValue().set(RedisKeysConstant.STOCK_VERSION + sid,String.valueOf(version));
         redisTemplate.opsForValue().set("proName",productName);
     }
 

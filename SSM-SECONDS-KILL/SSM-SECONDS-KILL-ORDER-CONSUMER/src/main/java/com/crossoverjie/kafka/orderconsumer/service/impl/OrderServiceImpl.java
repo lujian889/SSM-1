@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
      * @param stock
      */
     private void saleStockOptimisticByRedis(Stock stock) {
-        int count = stockService.updateStockByOptimistic(stock); //TODO 事务没起效 ?
+        int count = stockService.updateStockByOptimistic(stock); //TODO 主键bug已修复 https://blog.csdn.net/luozhonghua2014/article/details/80395459
         if (count == 0){
             throw new RuntimeException("并发更新库存失败") ;
         }

@@ -60,7 +60,7 @@ public class ConsumerTask implements Runnable {
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 
 
-        this.consumer = new KafkaConsumer<String, String>(props);
+        this.consumer = new KafkaConsumer<String, String>(props); //创建kafka group  &  top
         consumer.subscribe(Arrays.asList(topic));
     }
 

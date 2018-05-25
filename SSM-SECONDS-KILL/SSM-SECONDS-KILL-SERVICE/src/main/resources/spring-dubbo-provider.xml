@@ -17,6 +17,10 @@
     <!--<dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>-->
     <dubbo:protocol name="dubbo"  port="20880"/>
 
+    <!-- 配置监控的服务地址和IP-->
+    <!--<dubbo:monitor address="192.168.176.136:6060"  />-->
+     <dubbo:monitor protocol="registry" />
+
     <!-- 声明需要暴露的接口 -->
     <dubbo:annotation package="com.crossoverJie.seconds.kill.api.impl" />
 </beans>
